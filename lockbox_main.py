@@ -6,9 +6,10 @@ from os import system
 #from gpio4 import GPIO # Used to control GPIO buttons
 from cryptography.fernet import Fernet
 from encrypted_files.lockbox_settings import KeyLocations # Encryption/decryption method
-from terminal import LB_Terminal # The terminal that allows commands to be run
+from resources.terminal import LB_Terminal # The terminal that allows commands to be run
+#from resources.config import zerotier
 
-# Note: Designed to run on Ubuntu Server 22.14+
+# Note: Designed to run on Ubuntu Server 18+
 
 # Settings JSON (JEPY)
 SET_JSON_KEY = "b'p9pnL3dRhJBfbnS3j034gCO9U9LeH6lwhpb9JFT45UM='"

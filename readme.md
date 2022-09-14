@@ -19,7 +19,7 @@ This program ensures network security when combined with a LockBox Case.
 - RAM     | 1 Gb DDR3 or Higher
 - Disk    | 20 Mb
 - Network | WiFi Connection
-- OS      | Designed for Ubuntu Server 22.04+
+- OS      | Designed for Ubuntu Server 18+
 
 ---
 ## Features
