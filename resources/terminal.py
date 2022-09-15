@@ -1,5 +1,5 @@
 class LB_Terminal():
-    "The class for the terminal- Might as well be fancy and use a class instead of just using a constant loop"
+    "The class for the terminal- Might as well be fancy and use a class instead of just using a constant loop. Makes readability easier too, ig"
 
     # Constructing ig
     def __init__(self, name, command):
