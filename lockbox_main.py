@@ -1,30 +1,12 @@
 # Imports
+from json import load
 from time import time, sleep
 from random import randint, choice
-from json import dumps, loads, load
 from os import system
-#from gpio4 import GPIO # Used to control GPIO buttons
 from cryptography.fernet import Fernet
-from encrypted_files.lockbox_settings import KeyLocations # Encryption/decryption method
-from resources.terminal import LB_Terminal # The terminal that allows commands to be run
-#from resources.config import zerotier
-
-# Note: Designed to run on Ubuntu Server 18+
-
-# Settings JSON (JEPY)
-SET_JSON_KEY = "b'p9pnL3dRhJBfbnS3j034gCO9U9LeH6lwhpb9JFT45UM='"
-SET_JSON_LOC = "C:\Users\StG_44\Desktop\Project Lockbox\LockBox_Code\encrypted_files\lockbox_settings.py"
-
-# Code Locations (JEPY)
-PWORD_LOC = "" # Main password location
-MAN_TFA_LOC = "" # Manual 2FA passcode location
-REM_TFA_LOC = "" # Remote 2FA code location
-REC_CODE_LOC = "" # Recovery passcode location
+from PIL import Image as imge
 
 # General Variables
-network_connection = False # If the Pi is network-enabled. Disabled with code `DISNET()`, enabled with `ENANET()`.
-tfa_lock = True # Whether the 2FA has been bypassed by activation- Manual or remote. Relocked with code `SIGNOUT()`
-rem_tfa = False
 
 # Coloured Text Variables
 CEND = "\33[0m"
@@ -32,49 +14,79 @@ CRED = "\33[31m"
 CBLU = "\33[34m"
 CGRN = "\33[32m"
 
+# Encryption & Decryption methods
 def encrypt_dat(location, key):
     "Encrypt the specified file"
-
-    file = open(SET_JSON_LOC, "r")
-    fernet = Fernet(SET_JSON_KEY)
-    encMessage = fernet.encrypt(file.encode())
-    file.close()
-
-    file = open("/encrypted_files/lockbox_settings.jepy")
-    file.write(encMessage)
-    file.close()
 
 def decrypt_dat(location, key):
     "Decrypt the specefied file"
 
 ### MAIN ###
-print("Booting...")
+print("LockBox::Action::Starting")
 
-# Decrypts the JEPY format of the settings file, makes it Python, and imports it
-# Afterwards, it deletes the Python file
-print("15% | Decrypting and importing LOCKBOX settings...")
-encrypt_dat(SET_JSON_LOC, SET_JSON_KEY) # temporary to encrypt the file
+# Read from settings.json, and print collected imageLoc data to terminal
+print("LockBox::Action::Starting::Reading//settings.jsonc")
+print(CBLU + "LockBox::Action::Starting::ReadData//settings.jsonc: " + CEND)
+jsFL = open('settings.jsonc', 'r')
+jsAR = load(jsFL)
+setImp = []
 
-"""
-from encrypted_files.lockbox_settings import Keys, KeyLocations, Settings # imports the required scheiße
+temp = (randint(1, 3))
 
+for item in jsAR:
+    details = {"imgLoc_1":None}
+    details["imgLoc_1"] = item["imgLoc_1"]
+    setImp.append(details)
+for item in jsAR:
+    details = {"imgLoc_2":None}
+    details["imgLoc_2"] = item["imgLoc_2"]
+    setImp.append(details)
+for item in jsAR:
+    details = {"imgLoc_3":None}
+    details["imgLoc_3"] = item["imgLoc_3"]
+    setImp.append(details)
 
+print(CGRN + str(setImp) + CEND)
 
-print("25% | Locating level 2 key locations...")
-version = Settings.version
-# Key-Storing Variables
-mainPW_Loc = KeyLocations.mainPW
-man2FA_Loc = KeyLocations.man2FA
-recovr_Loc = KeyLocations.recovr
+# Creating a random number to choose an image
+print("LockBox::Action::Starting::PixelRand//CreateNum()")
+numList = []
+for i in range(1000):
+    temp = randint(1, 3)
+    numList.append(temp)
+print("LockBox::Action::Starting::PixelRand//NumList[]:")
+print(CGRN + str(numList) + CEND)
+temp = randint(1, 1000)
+imgNum = numList[temp]
+numList.clear()
 
-print("35% | Copying level 2 decryption keys...")
-mainPW_Key = Keys.mainPW
-man2FA_Key = Keys.man2FA
-rem2FA_Key = Keys.rem2FA
-recovr_Key = Keys.recovr
+# Getting image pixel counts
+print("LockBox::Action::Starting::PixelDet//PixelCount")
+# opening images for use
+if(imgNum == 1):
+    image = imge.open()
+elif(imgNum == 2):
+    image = imge.open()
+elif(imgNum == 3):
+    image = imge.open()
 
-print("45% | Deleting decrypted Python file...")
-# add deletion code here ig
+width, height = image.size()
+print("LockBox::Action::Starting::PixelDet//PixelCount:")
+print(CGRN + str(width*height) + CEND)
+# getting colour data randomly from the images, putting into array
+colourSTR = ""
+for i in range(100):
+    ranWI = randint(1, width)
+    ranHI = randint(1, height)
 
-print("50% | Decrypting level 2 decription keys...")
-"""
+    image_pix = image.convert('RGB')
+    r, g, b = image_pix.getpixel((ranWI, ranHI))
+    colourSTR += (r + g + b)
+
+print(colourSTR)
+
+finalList = ""
+for i in range(256):
+    temp = randint(1, len(colourSTR))
+    char = colourSTR[temp]
+    finalList += char
