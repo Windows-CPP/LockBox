@@ -1,4 +1,4 @@
-# LockBox | Windows NT Edition
+# LockBox | Windows NT Standalone Edition
 
 # Imports
 from json import load
