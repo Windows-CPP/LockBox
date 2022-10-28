@@ -8,7 +8,7 @@ from os import system
 from cryptography.fernet import Fernet
 from PIL import Image as imge
 
-# General Variables
+# Temp Est Variables Variables
 tempstr = ""
 
 # Coloured Text Variables
@@ -23,6 +23,7 @@ def encrypt_dat(location, key):
 
 def decrypt_dat(location, key):
     "Decrypt the specefied file"
+
 
 ### MAIN ###
 print("LockBox::Action::Starting")
