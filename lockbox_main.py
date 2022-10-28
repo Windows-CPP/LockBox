@@ -1,14 +1,11 @@
 # LockBox | Windows NT Standalone Edition
 
 # Imports
-from json import load
-from time import time, sleep
 from random import randint, choice
-from os import system
-from cryptography.fernet import Fernet
 from PIL import Image as imge
+from functions import Encryptor # Will be used soon enough
 
-# General Variables
+# Temp Est Variables Variables
 tempstr = ""
 
 # Coloured Text Variables
@@ -23,6 +20,7 @@ def encrypt_dat(location, key):
 
 def decrypt_dat(location, key):
     "Decrypt the specefied file"
+
 
 ### MAIN ###
 print("LockBox::Action::Starting")
