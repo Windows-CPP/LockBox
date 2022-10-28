@@ -31,7 +31,7 @@ print("LockBox::Action::Starting")
 print("LockBox::Action::Starting::Reading//settings.jsonc")
 print(CBLU + "LockBox::Action::Starting::ReadData//settings.jsonc: " + CEND)
 from settings import imgLoc_1, imgLoc_2, imgLoc_3
-setImp = (imgLoc_1 + "//" + imgLoc_2 + "//" + imgLoc_3)
+setImp = (imgLoc_1 + " || " + imgLoc_2 + " || " + imgLoc_3)
 
 print(CGRN + str(setImp) + CEND)
 
@@ -41,7 +41,7 @@ numList = []
 for i in range(1000):
     temp = randint(1, 3)
     numList.append(temp)
-print("LockBox::Action::Starting::PixelRand//NumList[]:")
+print(CBLU + "LockBox::Action::Starting::PixelRand//NumList[]:" + CEND)
 print(CGRN + str(numList) + CEND)
 temp = randint(1, 1000)
 imgNum = numList[temp]
@@ -57,29 +57,30 @@ elif(imgNum == 2):
 elif(imgNum == 3):
     image = imge.open(imgLoc_3)
 
-width, height = image.size()
-print("LockBox::Action::Starting::PixelDet//PixelCount:")
-print(CGRN + str(width*height) + CEND)
+width, height = image.size
+
+print(CBLU + "LockBox::Action::Starting::PixelDet//PixelCount:" + CEND)
+print(CGRN + str(width*height) + " (" + str(width) + "x" + str(height) + ")" + CEND)
 # getting colour data randomly from the images, putting into array
 colourSTR = ""
-for i in range(100):
-    ranWI = randint(1, width)
-    ranHI = randint(1, height)
+for i in range(512):
+    ranWI = randint(1, (width - 1))
+    ranHI = randint(1, (height - 1))
 
     image_pix = image.convert('RGB')
     r, g, b = image_pix.getpixel((ranWI, ranHI))
-    colourSTR += (r + g + b)
+    colourSTR += str((r + g + b))
 
 print(CGRN + str(colourSTR) + CEND)
 
 print("LockBox::Action::Starting::PixelFinal//FinalList")
 finalList = ""
 for i in range(256):
-    temp = randint(1, len(colourSTR))
+    temp = randint(1, (len(colourSTR) - 1))
     char = colourSTR[temp]
     finalList += char
 
-print("LockBox::Action::Starting::PixelFinal//FET_Pin:")
+print(CBLU + "LockBox::Action::Starting::PixelFinal//FET_Pin:" + CEND)
 for i in range(4):
     temp = randint(1, 256)
     tempstr += finalList[temp]
