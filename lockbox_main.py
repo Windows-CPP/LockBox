@@ -1,12 +1,9 @@
 # LockBox | Windows NT Standalone Edition
 
 # Imports
-from json import load
-from time import time, sleep
 from random import randint, choice
-from os import system
-from cryptography.fernet import Fernet
 from PIL import Image as imge
+from functions import Encryptor # Will be used soon enough
 
 # Temp Est Variables Variables
 tempstr = ""
