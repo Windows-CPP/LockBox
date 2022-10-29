@@ -1,4 +1,7 @@
-# LockBox | Windows NT Standalone Edition
+# LockBox | Windows NT Standalone Build
+
+# Windows NT Standalone Build
+# v0.6-beta
 
 # Imports
 from random import randint, choice
@@ -26,7 +29,7 @@ def decrypt_dat(location, key):
 print("LockBox::Action::Starting")
 
 # Read from settings.json, and print collected imageLoc data to terminal
-print("LockBox::Action::Starting::Reading//settings.jsonc")
+print("\n\nLockBox::Action::Starting::Reading//settings.jsonc")
 print(CBLU + "LockBox::Action::Starting::ReadData//settings.jsonc: " + CEND)
 from settings import imgLoc_1, imgLoc_2, imgLoc_3
 setImp = (imgLoc_1 + " || " + imgLoc_2 + " || " + imgLoc_3)
@@ -34,7 +37,7 @@ setImp = (imgLoc_1 + " || " + imgLoc_2 + " || " + imgLoc_3)
 print(CGRN + str(setImp) + CEND)
 
 # Creating a random number to choose an image
-print("LockBox::Action::Starting::PixelRand//CreateNum()")
+print("\nLockBox::Action::Starting::PixelRand//CreateNum()")
 numList = []
 for i in range(1000):
     temp = randint(1, 3)
@@ -46,7 +49,7 @@ imgNum = numList[temp]
 numList.clear()
 
 # Getting image pixel counts
-print("LockBox::Action::Starting::PixelDet//PixelCount")
+print("\nLockBox::Action::Starting::PixelDet//PixelCount")
 # opening images for use
 if(imgNum == 1):
     image = imge.open(imgLoc_1)
@@ -71,15 +74,23 @@ for i in range(512):
 
 print(CGRN + str(colourSTR) + CEND)
 
-print("LockBox::Action::Starting::PixelFinal//FinalList")
+# Created the final numbers for use in the keygen
+print("\nLockBox::Action::Starting::PixelFinal//FinalList")
 finalList = ""
 for i in range(256):
     temp = randint(1, (len(colourSTR) - 1))
     char = colourSTR[temp]
     finalList += char
 
+# Generates a nonunique pin for the end of the encryption
 print(CBLU + "LockBox::Action::Starting::PixelFinal//FET_Pin:" + CEND)
 for i in range(4):
     temp = randint(1, 256)
     tempstr += finalList[temp]
 print(CGRN + tempstr + CEND)
+
+"""
+Note for future reference
+The string `finalList` contains the 256 numbers that should be used from now out, disregard most of the other lists and variables-
+they're safe to overwrite now
+"""

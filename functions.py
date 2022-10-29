@@ -20,7 +20,7 @@ class Encryptor():
         __tempString__ = textString
         for i in range(len(textString)):
             if(__tempString__[i] == '1'):
-                __tempString__[i] = 'temp' # How do we do this using the key? We need to make an algor
+                __tempString__[i] = 'temp' # How do we do this using the key? We need to make an algorithm for this that's better than this, cause this is deplorable
             if(__tempString__[i] == '2'):
                 ''
             if(__tempString__[i] == '3'):
