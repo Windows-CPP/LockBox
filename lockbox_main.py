@@ -24,6 +24,7 @@ def encrypt_dat(location, key):
 def decrypt_dat(location, key):
     "Decrypt the specefied file"
 
+
 ### MAIN ###
 print("LockBox::Action::Starting")
 
