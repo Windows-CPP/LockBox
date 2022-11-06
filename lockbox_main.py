@@ -17,13 +17,6 @@ CRED = "\33[31m"
 CBLU = "\33[34m"
 CGRN = "\33[32m"
 
-# Encryption & Decryption methods
-def encrypt_dat(location, key):
-    "Encrypt the specified file"
-
-def decrypt_dat(location, key):
-    "Decrypt the specefied file"
-
 
 ### MAIN ###
 print("LockBox::Action::Starting")
