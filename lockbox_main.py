@@ -55,7 +55,7 @@ print(CGRN + str(numList) + CEND)
 print(CBLU + "LockBox::Action::Starting::PixelRand--WAIT_STOP_COMMAND(5_SECONDS):" + CEND)
 sleep(5)
 print(CBLU + "LockBox::Action::Starting::PixelRand--CONTINUE_PAST_COMMAND(0S):" + CEND)
-temp = randint(1, len(imgLoc))
+temp = randint(0, len(imgLoc))
 imgNum = numList[temp]
 numList.clear()
 
@@ -106,7 +106,7 @@ for i in range(256):
 # Generates a nonunique pin for the end of the encryption
 print(CBLU + "LockBox::Action::Starting::PixelFinal//FET_Pin:" + CEND)
 for i in range(4):
-    temp = randint(1, 256)
+    temp = randint(0, 255)
     tempstr += finalList[temp]
 print(CGRN + tempstr + CEND)
 
