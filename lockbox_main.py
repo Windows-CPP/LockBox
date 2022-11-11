@@ -63,7 +63,7 @@ numList.clear()
 print("\nLockBox::Action::Starting::ImageOpen() ")
 for i in range(len(imgLoc)):
     if(i == imgNum):
-        image = imge.open(imgLoc)
+        image = imge.open(imgLoc[imgNum])
     elif(i != imgNum):
         numFail += 1
     else:
