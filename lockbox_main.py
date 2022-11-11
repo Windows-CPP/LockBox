@@ -6,14 +6,17 @@
 # Imports
 from random import randint, choice
 from PIL import Image as imge
-from functions import Encryptor # Will be used soon enough
+from time import sleep
+from functions import cls # will come in handy later fs
 
 # Temp Est Variables Variables
 tempstr = ""
+numFail = 0
 
 # Coloured Text Variables
 CEND = "\33[0m"
 CRED = "\33[31m"
+CORG = "\33[33m"
 CBLU = "\33[34m"
 CGRN = "\33[32m"
 
@@ -21,11 +24,20 @@ CGRN = "\33[32m"
 ### MAIN ###
 print("LockBox::Action::Starting")
 
+
+################################################ BETA CHANNEL WORKLIST START ################################################
+# originally, this would inmport a set num of images
+# now, it will import however many images are registered in `settings.py`
+# makers life easier when 100+ imagse are imported for the final release
+
 # Read from settings.json, and print collected imageLoc data to terminal
-print("\n\nLockBox::Action::Starting::Reading//settings.jsonc")
+print("\n\nLockBox::Action::Starting::Reading//settings.py")
 print(CBLU + "LockBox::Action::Starting::ReadData//settings.jsonc: " + CEND)
-from settings import imgLoc_1, imgLoc_2, imgLoc_3
-setImp = (imgLoc_1 + " || " + imgLoc_2 + " || " + imgLoc_3)
+from settings import imgLoc
+setImp = ""
+for i in range(len(imgLoc)):
+    setImp += str(imgLoc[i])
+    setImp += ", "
 
 print(CGRN + str(setImp) + CEND)
 
@@ -33,23 +45,35 @@ print(CGRN + str(setImp) + CEND)
 print("\nLockBox::Action::Starting::PixelRand//CreateNum()")
 numList = []
 for i in range(1000):
-    temp = randint(1, 3)
+    temp = randint(1, len(imgLoc))
     numList.append(temp)
+
+# Choosing random number to choose an image
+print("\nLockBox::Action::Starting::PixelRand//CreateNum()")
 print(CBLU + "LockBox::Action::Starting::PixelRand//NumList[]:" + CEND)
 print(CGRN + str(numList) + CEND)
-temp = randint(1, 1000)
+print(CBLU + "LockBox::Action::Starting::PixelRand--WAIT_STOP_COMMAND(5_SECONDS):" + CEND)
+sleep(5)
+print(CBLU + "LockBox::Action::Starting::PixelRand--CONTINUE_PAST_COMMAND(0S):" + CEND)
+temp = randint(1, len(imgLoc))
 imgNum = numList[temp]
 numList.clear()
 
+# Opening image for use
+print("\nLockBox::Action::Starting::ImageOpen() ")
+for i in range(len(imgLoc)):
+    if(i == imgNum):
+        image = imge.open(imgLoc)
+    elif(i != imgNum):
+        numFail += 1
+    else:
+        true = true
+
+print(CORG + "LockBox::Action::Starting::PixelRand//FailCount: " + str(numFail) + CEND)
+print(CGRN + "LockBox::Action::Starting::PixelRand//SuccessTry_Parse() " + CEND)
+
 # Getting image pixel counts
 print("\nLockBox::Action::Starting::PixelDet//PixelCount")
-# opening images for use
-if(imgNum == 1):
-    image = imge.open(imgLoc_1)
-elif(imgNum == 2):
-    image = imge.open(imgLoc_2)
-elif(imgNum == 3):
-    image = imge.open(imgLoc_3)
 
 width, height = image.size
 
@@ -66,6 +90,10 @@ for i in range(512):
     colourSTR += str((r + g + b))
 
 print(CGRN + str(colourSTR) + CEND)
+
+
+################################################ BETA CHANNEL WORKLIST END ################################################
+
 
 # Created the final numbers for use in the keygen
 print("\nLockBox::Action::Starting::PixelFinal//FinalList")

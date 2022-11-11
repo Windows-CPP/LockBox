@@ -1,3 +1,5 @@
-imgLoc_1 = "./images/IM-1.jpg"
-imgLoc_2 = "./images/IM-2.jpg"
-imgLoc_3 = "./images/IM-3.jpg"
+imgLoc = {
+    0:"./images/1.jpg",
+    1:"./images/2.jpg",
+    2:"./images/3.jpg"
+}
