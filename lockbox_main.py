@@ -1,59 +1,83 @@
-# LockBox | Windows NT Standalone Edition
+# LockBox | Windows NT Standalone Build
 
-# Imports
-from random import randint, choice
-from PIL import Image as imge
-from functions import Encryptor # Will be used soon enough
+# Windows NT Standalone Build
+# v0.6-beta
 
 # Temp Est Variables Variables
 tempstr = ""
+numFail = 0
 
 # Coloured Text Variables
 CEND = "\33[0m"
 CRED = "\33[31m"
+CORG = "\33[33m"
 CBLU = "\33[34m"
 CGRN = "\33[32m"
 
-# Encryption & Decryption methods
-def encrypt_dat(location, key):
-    "Encrypt the specified file"
-
-def decrypt_dat(location, key):
-    "Decrypt the specefied file"
-
 
 ### MAIN ###
+from pyth.settings import genInf
 print("LockBox::Action::Starting")
+print("LockBox::" + genInf["build"] + "/" + genInf["version"])
 
-# Read from settings.json, and print collected imageLoc data to terminal
-print("LockBox::Action::Starting::Reading//settings.jsonc")
-print(CBLU + "LockBox::Action::Starting::ReadData//settings.jsonc: " + CEND)
-from settings import imgLoc_1, imgLoc_2, imgLoc_3
-setImp = (imgLoc_1 + " || " + imgLoc_2 + " || " + imgLoc_3)
+print("LockBox::Action::Boot::GetLibs()")
+
+# Premade libs
+from random import randint
+from PIL import Image as imge # Image size reading lib
+
+# Custom libs & data
+from pyth.settings import imgLoc # Image locations for later on
+from pyth.functions import cls # will come in handy
+from pyth.classes import EncDec # Main encryp/decryp class, kinda needed
+
+################################################ BETA CHANNEL WORKLIST START ################################################
+## Beta Worklist as of v0.6.0-b to v0.6.1-b, 16/11/2022 completed ##
+# originally, this would inmport a set num of images
+# now, it will import however many images are registered in `settings.py`
+# makers life easier when 100+ imagse are imported for the final release
+
+# Read from settings.py, and print collected imageLoc data to terminal
+print("\n\nLockBox::Action::Starting::Reading//settings.py")
+print(CBLU + "LockBox::Action::Starting::ReadData//settings.py: " + CEND)
+setImp = ""
+for i in range(len(imgLoc)):
+    setImp += str(imgLoc[i])
+    setImp += ", "
 
 print(CGRN + str(setImp) + CEND)
 
 # Creating a random number to choose an image
-print("LockBox::Action::Starting::PixelRand//CreateNum()")
+print("\nLockBox::Action::Starting::PixelRand//CreateNum()")
 numList = []
 for i in range(1000):
-    temp = randint(1, 3)
+    temp = randint(0, (len(imgLoc) - 1)) ## changed from 1 to 0, added -1, fixes bug outlined in bugReportLog_ID001.txt
     numList.append(temp)
+
+# Choosing random number to choose an image
+print("\nLockBox::Action::Starting::PixelRand//CreateNum()")
 print(CBLU + "LockBox::Action::Starting::PixelRand//NumList[]:" + CEND)
 print(CGRN + str(numList) + CEND)
-temp = randint(1, 1000)
+
+temp = randint(0, len(imgLoc))
 imgNum = numList[temp]
 numList.clear()
 
+# Opening image for use
+print("\nLockBox::Action::Starting::ImageOpen() ")
+for i in range(len(imgLoc)):
+    if(i == imgNum):
+        image = imge.open(imgLoc[imgNum])
+    elif(i != imgNum):
+        numFail += 1
+    else:
+        true = true
+
+print(CORG + "LockBox::Action::Starting::PixelRand//FailCount: " + str(numFail) + CEND)
+print(CGRN + "LockBox::Action::Starting::PixelRand//SuccessTry_Parse() " + CEND)
+
 # Getting image pixel counts
-print("LockBox::Action::Starting::PixelDet//PixelCount")
-# opening images for use
-if(imgNum == 1):
-    image = imge.open(imgLoc_1)
-elif(imgNum == 2):
-    image = imge.open(imgLoc_2)
-elif(imgNum == 3):
-    image = imge.open(imgLoc_3)
+print("\nLockBox::Action::Starting::PixelDet//PixelCount")
 
 width, height = image.size
 
@@ -71,15 +95,40 @@ for i in range(512):
 
 print(CGRN + str(colourSTR) + CEND)
 
-print("LockBox::Action::Starting::PixelFinal//FinalList")
+
+################################################ BETA CHANNEL WORKLIST END ################################################
+
+
+# Created the final numbers for use in the keygen
+print("\nLockBox::Action::Starting::PixelFinal//FinalList")
 finalList = ""
 for i in range(256):
     temp = randint(1, (len(colourSTR) - 1))
     char = colourSTR[temp]
     finalList += char
 
+# Generates a 4-digit ferpin at the end of encryption
 print(CBLU + "LockBox::Action::Starting::PixelFinal//FET_Pin:" + CEND)
 for i in range(4):
-    temp = randint(1, 256)
+    temp = randint(0, 255)
     tempstr += finalList[temp]
 print(CGRN + tempstr + CEND)
+
+"""
+Note for future reference
+The string `finalList` contains the 256 numbers that should be used from now out, disregard most of the other lists and variables-
+they're safe to overwrite now
+"""
+
+# Possible way to do 256x encryption-
+# Index # of charachters in document
+# Take current indexed charachter and find it's char value
+# Add number if <= 6, subtract number if >=5
+# Add charachter to spot
+# Repeat for every number in FinalList until original charachter is 256 different charachters
+
+# For decryption-
+# Group the document into 256-byte sized chunks (256 characters per chunk)
+# Use the opposite method of encryption- add number if >=, subtract if <= 6
+# If all 256 characters are the same, then replace all of them with just one of that character
+# Else, there is document corruption
