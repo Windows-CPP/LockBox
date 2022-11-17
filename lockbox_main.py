@@ -3,12 +3,6 @@
 # Windows NT Standalone Build
 # v0.6-beta
 
-# Imports
-from random import randint, choice
-from PIL import Image as imge
-from time import sleep
-from functions import cls # will come in handy later fs
-
 # Temp Est Variables Variables
 tempstr = ""
 numFail = 0
@@ -22,18 +16,30 @@ CGRN = "\33[32m"
 
 
 ### MAIN ###
+from pyth.settings import genInf
 print("LockBox::Action::Starting")
+print("LockBox::" + genInf["build"] + "/" + genInf["version"])
 
+print("LockBox::Action::Boot::GetLibs()")
+
+# Premade libs
+from random import randint
+from PIL import Image as imge # Image size reading lib
+
+# Custom libs & data
+from pyth.settings import imgLoc # Image locations for later on
+from pyth.functions import cls # will come in handy
+from pyth.classes import EncDec # Main encryp/decryp class, kinda needed
 
 ################################################ BETA CHANNEL WORKLIST START ################################################
+## Beta Worklist as of v0.6.0-b to v0.6.1-b, 16/11/2022 completed ##
 # originally, this would inmport a set num of images
 # now, it will import however many images are registered in `settings.py`
 # makers life easier when 100+ imagse are imported for the final release
 
-# Read from settings.json, and print collected imageLoc data to terminal
+# Read from settings.py, and print collected imageLoc data to terminal
 print("\n\nLockBox::Action::Starting::Reading//settings.py")
-print(CBLU + "LockBox::Action::Starting::ReadData//settings.jsonc: " + CEND)
-from settings import imgLoc
+print(CBLU + "LockBox::Action::Starting::ReadData//settings.py: " + CEND)
 setImp = ""
 for i in range(len(imgLoc)):
     setImp += str(imgLoc[i])
@@ -45,16 +51,14 @@ print(CGRN + str(setImp) + CEND)
 print("\nLockBox::Action::Starting::PixelRand//CreateNum()")
 numList = []
 for i in range(1000):
-    temp = randint(1, len(imgLoc))
+    temp = randint(0, (len(imgLoc) - 1)) ## changed from 1 to 0, added -1, fixes bug outlined in bugReportLog_ID001.txt
     numList.append(temp)
 
 # Choosing random number to choose an image
 print("\nLockBox::Action::Starting::PixelRand//CreateNum()")
 print(CBLU + "LockBox::Action::Starting::PixelRand//NumList[]:" + CEND)
 print(CGRN + str(numList) + CEND)
-print(CBLU + "LockBox::Action::Starting::PixelRand--WAIT_STOP_COMMAND(5_SECONDS):" + CEND)
-sleep(5)
-print(CBLU + "LockBox::Action::Starting::PixelRand--CONTINUE_PAST_COMMAND(0S):" + CEND)
+
 temp = randint(0, len(imgLoc))
 imgNum = numList[temp]
 numList.clear()
@@ -103,7 +107,7 @@ for i in range(256):
     char = colourSTR[temp]
     finalList += char
 
-# Generates a nonunique pin for the end of the encryption
+# Generates a 4-digit ferpin at the end of encryption
 print(CBLU + "LockBox::Action::Starting::PixelFinal//FET_Pin:" + CEND)
 for i in range(4):
     temp = randint(0, 255)
@@ -115,3 +119,16 @@ Note for future reference
 The string `finalList` contains the 256 numbers that should be used from now out, disregard most of the other lists and variables-
 they're safe to overwrite now
 """
+
+# Possible way to do 256x encryption-
+# Index # of charachters in document
+# Take current indexed charachter and find it's char value
+# Add number if <= 6, subtract number if >=5
+# Add charachter to spot
+# Repeat for every number in FinalList until original charachter is 256 different charachters
+
+# For decryption-
+# Group the document into 256-byte sized chunks (256 characters per chunk)
+# Use the opposite method of encryption- add number if >=, subtract if <= 6
+# If all 256 characters are the same, then replace all of them with just one of that character
+# Else, there is document corruption
