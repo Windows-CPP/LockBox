@@ -27,19 +27,17 @@ from random import randint
 from PIL import Image as imge # Image size reading lib
 
 # Custom libs & data
-from pyth.settings import imgLoc # Image locations for later on
-from pyth.functions import cls # will come in handy
+from pyth.settings import imgLoc # Image locations for later on, too lazy to create an autoManifest
+from pyth.functions import cls, autoImageManifeset # will come in handy
 from pyth.classes import EncDec # Main encryp/decryp class, kinda needed
-
-################################################ BETA CHANNEL WORKLIST START ################################################
-## Beta Worklist as of v0.6.0-b to v0.6.1-b, 16/11/2022 completed ##
-# originally, this would inmport a set num of images
-# now, it will import however many images are registered in `settings.py`
-# makers life easier when 100+ imagse are imported for the final release
 
 # Read from settings.py, and print collected imageLoc data to terminal
 print("\n\nLockBox::Action::Starting::Reading//settings.py")
 print(CBLU + "LockBox::Action::Starting::ReadData//settings.py: " + CEND)
+
+location = "./images/"
+imgLoc = autoImageManifeset(location)
+
 setImp = ""
 for i in range(len(imgLoc)):
     setImp += str(imgLoc[i])
@@ -83,7 +81,7 @@ width, height = image.size
 
 print(CBLU + "LockBox::Action::Starting::PixelDet//PixelCount:" + CEND)
 print(CGRN + str(width*height) + " (" + str(width) + "x" + str(height) + ")" + CEND)
-# getting colour data randomly from the images, putting into array
+# getting colour data randomly from the images, putting into string for later use
 colourSTR = ""
 for i in range(512):
     ranWI = randint(1, (width - 1))
@@ -132,3 +130,5 @@ they're safe to overwrite now
 # Use the opposite method of encryption- add number if >=, subtract if <= 6
 # If all 256 characters are the same, then replace all of them with just one of that character
 # Else, there is document corruption
+
+# Corruption Exception-
