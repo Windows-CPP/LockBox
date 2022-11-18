@@ -118,13 +118,6 @@ The string `finalList` contains the 256 numbers that should be used from now out
 they're safe to overwrite now
 """
 
-# Possible way to do 256x encryption-
-# Index # of charachters in document
-# Take current indexed charachter and find it's char value
-# Add number if <= 6, subtract number if >=5
-# Add charachter to spot
-# Repeat for every number in FinalList until original charachter is 256 different charachters
-
 # For decryption-
 # Group the document into 256-byte sized chunks (256 characters per chunk)
 # Use the opposite method of encryption- add number if >=, subtract if <= 6

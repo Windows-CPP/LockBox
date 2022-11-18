@@ -1,5 +1,5 @@
 import os
-from os import system
+from os import *
 
 def cls():
     'Clears the CLI.'
