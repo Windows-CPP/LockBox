@@ -1,7 +1,4 @@
-# LockBox | Windows NT Standalone Build
-
-# Windows NT Standalone Build
-# v0.6-beta
+# LockBox | Windows NT Standalone Build | v0.6.2-b
 
 # Temp Est Variables Variables
 tempstr = ""
@@ -14,8 +11,7 @@ CORG = "\33[33m"
 CBLU = "\33[34m"
 CGRN = "\33[32m"
 
-
-### MAIN ###
+## ENCRYPTION ALGORYTHM START ##
 from pyth.settings import genInf
 print("LockBox::Action::Starting")
 print("LockBox::" + genInf["build"] + "/" + genInf["version"])
@@ -25,11 +21,15 @@ print("LockBox::Action::Boot::GetLibs()")
 # Premade libs
 from random import randint
 from PIL import Image as imge # Image size reading lib
+from tqdm import tqdm
 
 # Custom libs & data
-from pyth.settings import imgLoc # Image locations for later on, too lazy to create an autoManifest
+from pyth.settings import imgLoc, settings # Image locations for later on, too lazy to create an autoManifest
 from pyth.functions import cls, autoImageManifeset # will come in handy
 from pyth.classes import EncDec # Main encryp/decryp class, kinda needed
+
+enclevel = settings["enclevel"]
+enclevel = enclevel * 128
 
 # Read from settings.py, and print collected imageLoc data to terminal
 print("\n\nLockBox::Action::Starting::Reading//settings.py")
@@ -71,7 +71,12 @@ for i in range(len(imgLoc)):
     else:
         true = true
 
-print(CORG + "LockBox::Action::Starting::PixelRand//FailCount: " + str(numFail) + CEND)
+if(numFail != len(imgLoc)):
+    print(CORG + "LockBox::Action::Starting::PixelRand//FailCount: " + str(numFail) + CEND)
+elif(numFail == len(imgLoc)):
+    print(CRED + "LockBox::Action::Starting::PixelRand//FailCount: " + str(numFail) + CRED)
+    print(CRED + "LockBox::ErrorReport::ImgOpen() | IMAGE_INDEX_RANGE_ERROR | Exit Code 0" + CEND)
+    exit()
 print(CGRN + "LockBox::Action::Starting::PixelRand//SuccessTry_Parse() " + CEND)
 
 # Getting image pixel counts
@@ -83,7 +88,7 @@ print(CBLU + "LockBox::Action::Starting::PixelDet//PixelCount:" + CEND)
 print(CGRN + str(width*height) + " (" + str(width) + "x" + str(height) + ")" + CEND)
 # getting colour data randomly from the images, putting into string for later use
 colourSTR = ""
-for i in range(512):
+for i in tqdm(range(1024)):
     ranWI = randint(1, (width - 1))
     ranHI = randint(1, (height - 1))
 
@@ -93,14 +98,11 @@ for i in range(512):
 
 print(CGRN + str(colourSTR) + CEND)
 
-
-################################################ BETA CHANNEL WORKLIST END ################################################
-
-
 # Created the final numbers for use in the keygen
+print("")
 print("\nLockBox::Action::Starting::PixelFinal//FinalList")
-finalList = ""
-for i in range(256):
+finalList = []
+for i in range(enclevel):
     temp = randint(1, (len(colourSTR) - 1))
     char = colourSTR[temp]
     finalList += char
@@ -112,16 +114,10 @@ for i in range(4):
     tempstr += finalList[temp]
 print(CGRN + tempstr + CEND)
 
+## ENCRYPTION ALGORYTHM END ##
+
 """
 Note for future reference
 The string `finalList` contains the 256 numbers that should be used from now out, disregard most of the other lists and variables-
 they're safe to overwrite now
 """
-
-# For decryption-
-# Group the document into 256-byte sized chunks (256 characters per chunk)
-# Use the opposite method of encryption- add number if >=, subtract if <= 6
-# If all 256 characters are the same, then replace all of them with just one of that character
-# Else, there is document corruption
-
-# Corruption Exception-
