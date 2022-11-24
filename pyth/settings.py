@@ -10,5 +10,5 @@ genInf = {
 }
 
 settings = {
-    "enclevel":1 # Multiples of 128- Use int 1 for 128, 2 for 256, etc.
+    "enclevel":1 # Encryption level. Multiples of 128- Use int 1 for 128, 2 for 256, etc.
 }

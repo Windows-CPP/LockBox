@@ -1,7 +1,7 @@
 from tqdm import tqdm
 
 class EncDec():
-    'Class that houses the main Encryption and Decryption methods for LockBox.\n\nUsage: `EncDec.crypt(key, location)`, `EncDecName.decrypt(key, location)`'
+    'Class that houses the main Encryption and Decryption methods for LockBox.\n\n -Usage- \nEncrypt - `EncDec.crypt(key, location)` \nDecrypt - `EncDecName.decrypt(key, location)`'
     __key__ = []
     __location__ = ""
     __enclevel__ = 0
@@ -22,7 +22,7 @@ class EncDec():
     # Possible way to do 256x encryption-
     # Index # of charachters in document, Take current indexed charachter and find it's ASCII char value
     # Add number if <= 6, subtract number if >=5, Add charachter to spot
-    # Repeat for every number in FinalList until original charachter is 256 different charachters
+    # Repeat for every number in FinalList until original charachter is 256 different charachters, +/- value __key__[b]
     def crypt(self):
         'The main encryption algorithym for LockBox.'
         newLoc = str(self.__location__ + "cryptal.txt")
@@ -30,15 +30,20 @@ class EncDec():
         opeFile = open(self.__location__, 'r')
         tempString = ""
 
+        # For i in range the length of the openFile...
         for i in tqdm(range(len(opeFile))):
             chara = opeFile[i]
             charaVal = ascii(chara)
 
+            # ... Turn the original ASCII character into {x} number of other characters,
             for b in range(self.__key__):
                 newCharVal = charaVal + self.__key__[b]
                 # Need to get this value back down to a range of ASCII character
-                # Need a number I can divide this by to get it between the range of:
-                # 0 - 
+                # ASCII codes in DEC format range: 
+                # 0 - 255
+                # We need to ignore ASCIIs (DEC code given):
+                # DEC Ver: 0 - 31, 32, 127, 129, 141, 143, 144, 157
+                # OCT Ver: 000 - 037, 040, 177, 201, 215, 217, 220
             tempString += newCharVal
     
     # For decryption-

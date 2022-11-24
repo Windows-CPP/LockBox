@@ -25,8 +25,7 @@ from tqdm import tqdm
 
 # Custom libs & data
 from pyth.settings import imgLoc, settings # Image locations for later on, too lazy to create an autoManifest
-from pyth.functions import cls, autoImageManifeset # will come in handy
-from pyth.classes import EncDec # Main encryp/decryp class, kinda needed
+from pyth.functions import cls, autoImageManifeset # Helps manage the image range manifesting
 
 enclevel = settings["enclevel"]
 enclevel = enclevel * 128
