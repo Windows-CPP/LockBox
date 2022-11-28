@@ -25,10 +25,9 @@ from tqdm import tqdm
 
 # Custom libs & data
 from pyth.settings import imgLoc, settings # Image locations for later on, too lazy to create an autoManifest
-from pyth.functions import cls, autoImageManifeset # Helps manage the image range manifesting
+from pyth.functions import cls, autoImageManifeset # Helps to index the image manifest in `Reading//settings.py`
 
-enclevel = settings["enclevel"]
-enclevel = enclevel * 128
+enclevel = settings["enclevel"] * 128
 
 # Read from settings.py, and print collected imageLoc data to terminal
 print("\n\nLockBox::Action::Starting::Reading//settings.py")
@@ -55,6 +54,7 @@ for i in range(1000):
 print("\nLockBox::Action::Starting::PixelRand//CreateNum()")
 print(CBLU + "LockBox::Action::Starting::PixelRand//NumList[]:" + CEND)
 print(CGRN + str(numList) + CEND)
+print("lenOf(numList):" + CBLU + str(len(numList)) + CEND)
 
 temp = randint(0, len(imgLoc))
 imgNum = numList[temp]

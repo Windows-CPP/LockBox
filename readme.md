@@ -6,7 +6,7 @@
 
 LockBox is an encryption method that is designed to run standalone or as a method inside of another Python program.
 It takes a string-based input (Input *can* be an `int`, but will return as an `str`).
-This is taken through our encryption algorithim to try and make data secure in a 256-bit format.
+This is run through a custom encryption algorithm to create encryption levels in multiples of `128x`.
 
 ### How it Works
 
