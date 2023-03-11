@@ -1,4 +1,4 @@
-# LockBox | Windows NT Standalone Build | v0.6.2-b
+# LockBox | Windows NT Standalone Build | v0.6.4-b
 
 # Temp Est Variables Variables
 tempstr = ""
@@ -22,13 +22,16 @@ print("LockBox::Action::Boot::GetLibs()")
 from random import randint
 from PIL import Image as imge # Image size reading lib
 from tqdm import tqdm
+print("LockBox::Action::Boot::GetLibs()//PremadeLibsLoaded")
 
 # Custom libs & data
 from pyth.settings import imgLoc, settings # Image locations for later on, too lazy to create an autoManifest
 from pyth.functions import cls, autoImageManifeset # Helps to index the image manifest in `Reading//settings.py`
+from pyth.c_EncDec import EncDec
+from pyth.c_LockBoxAction import LockBoxAction
+print("LockBox::Action::Boot::GetLibs()//CustomLibsLoadedMark")
 
-enclevel = settings["enclevel"] * 128
-
+#LockBox::Action::Starting::ReadData//settings.py
 # Read from settings.py, and print collected imageLoc data to terminal
 print("\n\nLockBox::Action::Starting::Reading//settings.py")
 print(CBLU + "LockBox::Action::Starting::ReadData//settings.py: " + CEND)
@@ -43,15 +46,21 @@ for i in range(len(imgLoc)):
 
 print(CGRN + str(setImp) + CEND)
 
+# LockBox::Action::Starting::EncLevel
+enclevel = settings["enclevel"] * 128
+print("LockBox::Action::Starting::ENCLEVEL(" + str(enclevel) + "x)")
+
+# LockBox::Action::Starting::PixelRand//CreateNum()
 # Creating a random number to choose an image
-print("\nLockBox::Action::Starting::PixelRand//CreateNum()")
+print("\nLockBox::Action::Starting::PixelRand//CreateNum_S1()")
 numList = []
 for i in range(1000):
     temp = randint(0, (len(imgLoc) - 1)) ## changed from 1 to 0, added -1, fixes bug outlined in bugReportLog_ID001.txt
     numList.append(temp)
 
+# LockBox::Action::Starting::PixelRand//CreateNum()
 # Choosing random number to choose an image
-print("\nLockBox::Action::Starting::PixelRand//CreateNum()")
+print("\nLockBox::Action::Starting::PixelRand//CreateNum_S2()")
 print(CBLU + "LockBox::Action::Starting::PixelRand//NumList[]:" + CEND)
 print(CGRN + str(numList) + CEND)
 print("lenOf(numList):" + CBLU + str(len(numList)) + CEND)
@@ -60,6 +69,7 @@ temp = randint(0, len(imgLoc))
 imgNum = numList[temp]
 numList.clear()
 
+# LockBox::Action::Starting::ImageOpen()
 # Opening image for use
 print("\nLockBox::Action::Starting::ImageOpen() ")
 for i in range(len(imgLoc)):
@@ -70,6 +80,7 @@ for i in range(len(imgLoc)):
     else:
         true = true
 
+# LockBox::Action::Starting::PixelRand//FailCount
 if(numFail != len(imgLoc)):
     print(CORG + "LockBox::Action::Starting::PixelRand//FailCount: " + str(numFail) + CEND)
 elif(numFail == len(imgLoc)):
@@ -78,6 +89,7 @@ elif(numFail == len(imgLoc)):
     exit()
 print(CGRN + "LockBox::Action::Starting::PixelRand//SuccessTry_Parse() " + CEND)
 
+# LockBox::Action::Starting::PixelDet//PixelCount
 # Getting image pixel counts
 print("\nLockBox::Action::Starting::PixelDet//PixelCount")
 
@@ -97,6 +109,7 @@ for i in tqdm(range(1024)):
 
 print(CGRN + str(colourSTR) + CEND)
 
+# LockBox::Action::Starting::PixelFinal//FinalList
 # Created the final numbers for use in the keygen
 print("")
 print("\nLockBox::Action::Starting::PixelFinal//FinalList")
@@ -106,6 +119,7 @@ for i in range(enclevel):
     char = colourSTR[temp]
     finalList += char
 
+# LockBox::Action::Starting::PixelFinal//FET_Pin
 # Generates a 4-digit ferpin at the end of encryption
 print(CBLU + "LockBox::Action::Starting::PixelFinal//FET_Pin:" + CEND)
 for i in range(4):
