@@ -1,6 +1,6 @@
 from tqdm import tqdm
 
-class EncDec():
+class ED():
     'Class that houses the main Encryption and Decryption methods for LockBox.\n\n -Usage- \nEncrypt - `EncDec.crypt(key, location)` \nDecrypt - `EncDecName.decrypt(key, location)`'
     __key__ = []
     __location__ = ""
@@ -9,15 +9,15 @@ class EncDec():
 
     def __init__(self, keyIn, locIn, enclIn):
         'Init class for EncDec.'
-        self.__key__ = keyIn
-        self.__location__ = locIn
-        self.__enclevel__ = enclIn
+        __key__ = keyIn
+        __location__ = locIn
+        __enclevel__ = enclIn
 
     def updateDat(self, keyIn, locIn, enclIn):
         'Updates location and key for EncDec.'
-        self.__key__ = keyIn
-        self.__location__ = locIn
-        self.enclevel = enclIn
+        __key__ = keyIn
+        __location__ = locIn
+        enclevel = enclIn
 
     # Possible way to do 256x encryption-
     # Index # of charachters in document, Take current indexed charachter and find it's ASCII char value
