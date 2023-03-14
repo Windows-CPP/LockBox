@@ -4,6 +4,7 @@
 
 | Version | Supported          |
 | ------- | ------------------ |
+| 0.6     | :x:                |
 | 0.5     | :x:                |
 | -b0.5   | :x:                |
 
@@ -12,11 +13,11 @@
 | Version | Supported          |
 | ------- | ------------------ |
 | N/A     | ❔                |
-No UNIX versions available yet.
+(No UNIX versions available yet.)
 
 ## Reporting Vulnerabilities
 
-To report vulnerabilities that have been found, please email (me here)[Bobbycast66@gmail.com].
+To report vulnerabilities that have been found, please email (me here)[Bobbycastdev@gmail.com].
 Please put the Subjet of your email as `Vulnerability-LockBox - [Issue Goes Here]`. 
 
 When writing your email, please be sure to disclose the following:
