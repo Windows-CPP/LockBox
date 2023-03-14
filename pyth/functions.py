@@ -6,7 +6,7 @@ def cls():
     os.system("cls")
 
 def autoImageManifeset(location):
-    'Automatically scans the number and names of all images inside of the specefied directory, and puts them into a returned array.\n\nUsage: autoImageManifest(location)'
+    'Scans the number and names of all images inside of the specefied directory, and puts them into a returned array.\n\nUsage: autoImageManifest(location)'
     numFiles = 0
     fileLocAr = {}
 

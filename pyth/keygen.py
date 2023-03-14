@@ -23,22 +23,26 @@ print("LockBox::Action::Boot::GetLibs()[RESPONSE]: Premade Libs Loaded.")
 # can we get much hi-er? so high, ooaahh, ooahhaoohh
 
 class KeyGen():
-	'Class that houses the Key Generator. Methods:\n\nfetchKey(),  hideKey(),  generate()'
+	'Class that houses the Key Generator. Methods:\n\n`fetchKey()`,  `hideKey()`,  `generate()`'
 	key = ""
 
 	def __init__(self, key):
 		self.key = key
 
+	def setKey(self, key):
+		'Manually set the key for the KeyGen class.'
+		self.key = key
+
 	def fetchKey(self):
-		'Find the key through a series of steps. Very intuitive, I know.'
+		'Decrypt the key from the 3-image 10 pixel method (Aka, the 3x10 Method)'
 		# work to actually find key in the 3-image method mumbo jumbo goes here
 	
 	def hideKey(self):
-		'Hide the key in a series of steps. Very intuitive, I know.'
+		'Encrpt the key using the 3x10 method.'
 		# work to actually hide the key in the 3-image method mumbo jumbo goes here
 
-	def generate(): # lmao cognitive complexity is at 41 / 15 maximum, whoopsy daisy
-		'Generates a key based off of images in the .\images\ directory.'
+	def generate(): # lmao cognitive complexity is at 35 / 15 maximum, whoopsy daisy
+		'Generates a key to be used for encryption and decryption.'
 		tempstr = ""
 		numFail = 0
 		
@@ -148,7 +152,7 @@ class KeyGen():
 		dts = dts.__round__()
 
 		# i know this was the shittest way to do it, but i'm wayy too over my head rn to improve it
-		# plus I can barely get it working, it's less reliable than stock-cooled Pentium 4 CPU
+		# plus I can barely get it working, it's less reliable than a Ford (We all know what ford stands for)
 		# IT WASN'T THIS BAD B4 WHY DOES IT SUCK NOW
 		if(dts % 2 == 0): # if the timestamp is even
 			for i in tqdm(range(len(fNL))):

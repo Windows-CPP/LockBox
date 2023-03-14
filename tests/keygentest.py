@@ -35,7 +35,8 @@ else:
 
 #test3
 print(CM+"\n\nTEST 3: Key Length"+CE)
-print(len(KeyGen.key))
+print("Actual: " + str(len(KeyGen.key)))
+print("Expected: " + settings["enclevel"]*128)
 if(len(KeyGen.key) == settings["enclevel"]*128):
     testsPassed += 1
 else:
