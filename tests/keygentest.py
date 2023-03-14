@@ -3,6 +3,7 @@
 from pyth.keygen import KeyGen
 from pyth.settings import settings
 import time
+import datetime
 
 
 CE = "\33[0m"
@@ -56,6 +57,8 @@ endTime = time.time()
 
 #totals
 print(CM+"\n\nTESTS PASSED: " + str(testsPassed) + "/" + str(totalTests) +CE)
-print(CM+"TESTS FAILED: " + str(4-testsPassed) + "/" + str(totalTests) +CE)
+print(CM+"TESTS FAILED: " + str(totalTests-testsPassed) + "/" + str(totalTests) +CE)
 print(CM+"SUCCESS RATE: " + str((testsPassed/totalTests)*100) + "%"+CE)
+print("")
 print(CM+"TIME ELAPSED: " + str(endTime - staTime) + "s" + CE)
+print(CM+"TEST COMPLETED: " + str(datetime.datetime.now()) + CE)

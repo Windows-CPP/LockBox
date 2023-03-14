@@ -1,9 +1,9 @@
 import os
-from os import *
+import os
 
 def cls():
     'Clears the CLI.'
-    system("cls")
+    os.system("cls")
 
 def autoImageManifeset(location):
     'Automatically scans the number and names of all images inside of the specefied directory, and puts them into a returned array.\n\nUsage: autoImageManifest(location)'
