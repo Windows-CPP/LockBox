@@ -1,6 +1,6 @@
 ## Key Generation ##
 
-1. [] Move the Encryption Algorithm from LockBox_Main to c_LockBoxAction.py
+1. [X] Move the Encryption Algorithm from LockBox_Main to \pyth\keygen.py
 
 2. [] Change encryption key generation
     - Use 3 random images out of x number of images

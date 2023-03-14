@@ -1,23 +1,22 @@
-## Temp Variables 
-tempstr = ""
-numFail = 0
-
 ## Coloured Text Variables
 CEND = "\33[0m"
 CRED = "\33[31m"
 CORG = "\33[33m"
 CBLU = "\33[34m"
 CGRN = "\33[32m"
+CMGT = "\33[35m"
 
 ## Imports
 # Custom Libs & Data
-from settings import genInf, settings # General Info, Image Location
-from functions import cls, autoImageManifeset # Helps to index the image manifest in `Reading//settings.py`
+from pyth.settings import genInf, settings # General Info, Image Location
+from pyth.functions import cls, autoImageManifeset # Helps to index the image manifest in `Reading//settings.py`
 print("LockBox::Action::Boot::GetLibs()[RESPONSE]: Custom Libs Loaded.")
 from random import randint
 from PIL import Image as imge # used to read image size
 from tqdm import tqdm # progress bar
 from time import sleep
+from datetime import timezone
+import datetime
 print("LockBox::Action::Boot::GetLibs()[RESPONSE]: Premade Libs Loaded.")
 
 ## THE KEY GENERATION CLASS IS REEAAAAALL
@@ -38,8 +37,11 @@ class KeyGen():
 		'Hide the key in a series of steps. Very intuitive, I know.'
 		# work to actually hide the key in the 3-image method mumbo jumbo goes here
 
-	def generate(self):
+	def generate(): # lmao cognitive complexity is at 41 / 15 maximum, whoopsy daisy
 		'Generates a key based off of images in the .\images\ directory.'
+		tempstr = ""
+		numFail = 0
+		
 		# Version Printer
 		print("LockBox::Action::Starting")
 		print("LockBox::" + genInf["build"] + "/" + genInf["version"])
@@ -82,7 +84,6 @@ class KeyGen():
 
 		temp = randint(0, len(imgLoc))
 		imgNum = numList[temp]
-		del(numList) # to save on ram since numList is kinda big + we don't need it now
 
 		#LockBox::Action::ImageOpen()
 		# Opening the images for use
@@ -130,12 +131,68 @@ class KeyGen():
 		## LockBox::Action::FinalNumList()
 		# Creating the final number list
 		print("\nLockBox::Action::FinalNumList()")
-		finalNumList = []
+		fNL = [] # stands for final number list
 		for i in range(enclevel * 2): # generate numerical key based around enclevel times two
 			temp = randint(1, (len(colorData) - 1))
 			char = colorData[temp]
-			finalNumList += char
+			fNL.append(char)
 		
 		## LockBox::Action::KeyCharGen()
-		# Turns numerical list into one with chars
+		# Turns numerical list into one with chars & numbers based around the % of a timestamp
+		print("\nLockBox::Action::KeyCharGen()")
+		charList = "" # the list of chars & numbers that make up the key
+
+		dt = datetime.datetime.now(timezone.utc) # get current time (in whatever PST or MST bs)
+		dt_utc = dt.replace(tzinfo=timezone.utc) # convert to UTC
+		dts = dt_utc.timestamp()
+		dts = dts.__round__()
+
+		# i know this was the shittest way to do it, but i'm wayy too over my head rn to improve it
+		# plus I can barely get it working, it's less reliable than stock-cooled Pentium 4 CPU
+		# IT WASN'T THIS BAD B4 WHY DOES IT SUCK NOW
+		if(dts % 2 == 0): # if the timestamp is even
+			for i in tqdm(range(len(fNL))):
+				tempChar = fNL[i]
+				if(i % 2 == 0): # if the index is even, do this stuff
+					if(tempChar != 0): # if the char is not 0, multiply by a random number, get said numbers char value, and add it to charList
+						tempChar = round(int(tempChar) * randint(99, 1000))
+						charList += str(chr(int(tempChar))) # THIS LOOKS RETARDED LMAOOOO (does it even work?)
+					elif(tempChar == 0): # if the char is 0, set to random number and do the same
+						tempChar = randint(1, 9)
+						tempChar = round( tempChar * randint(99, 1000))
+						charList += str(tempChar)
+				elif(i % 2 != 0): # if the index is odd, skip this iteration
+					continue
+
+		elif(dts % 2 != 0): # if the timestamp is odd
+			for i in tqdm(range(len(fNL))):
+				tempChar = fNL[i]
+				if(i % 2 != 0): # if the index is odd, do this stuff
+					if(tempChar != 0): # if the char is not 0, multiply by a random number, get said numbers char value, and add it to charList
+						tempChar = round(int(tempChar) * randint(99, 1000))
+						#print(CMGT + str(tempChar) + CEND) ## DEBUG LINE -- FOR TESTING ONLY!!! L##
+						charList += str(chr(int(tempChar))) # THIS LOOKS RETARDED LMAOOOO (does it even work?)
+					elif(tempChar == 0): # if the char is 0, set to random number and do the same
+						tempChar = randint(1, 9)
+						tempChar = round(tempChar * randint(99, 1000)) 
+						charList += str(tempChar)
+				elif(i % 2 != 0): # if the index is odd, skip this iteration
+					continue
 		
+		## LockBox::Action::KeySet()
+		# Sets the key to the generated key
+		print("\nLockBox::Action::KeySet()")
+		KeyGen.key = charList
+
+		## LockBox::Action::Cleanup()
+		# Deletes RAM-heavy vars and closes images
+		print("\nLockBox::Action::Cleanup()")
+		
+		# del all the resource-heavy vars
+		del(numList)
+		del(fNL)
+		del(charList)
+		del(colorData)
+
+		# close all the images opened
+		image.close()
