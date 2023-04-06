@@ -48,18 +48,6 @@ else:
     testsPassed += 0
     test3 = False
 
-"""
-#test4
-print(CM+"\n\nTEST 4: Key Characteristics"+CE)
-print("Key is type: " + str(type(KeyGen.key)))
-print("Decimal Value: " + str(ord(KeyGen.key)))
-inputv = input(str("IS THIS TEST PASSED (Y/N)? "))
-if(inputv == "Y"):
-    testsPassed += 1
-else:
-    testsPassed += 0
-"""
-
 endTime = time.time()
 
 #totals
