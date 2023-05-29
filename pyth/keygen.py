@@ -154,6 +154,7 @@ class KeyGen():
 		# i know this was the shittest way to do it, but i'm wayy too over my head rn to improve it
 		# plus I can barely get it working, it's less reliable than a Ford (We all know what ford stands for)
 		# IT WASN'T THIS BAD B4 WHY DOES IT SUCK NOW
+		# I DON'T EVEN KNOW WHY THIS SHIT WORKS??? IT JUST DOES????? BUT NOT PROPERLY?!?!?!?
 		if(dts % 2 == 0): # if the timestamp is even
 			for i in tqdm(range(len(fNL))):
 				tempChar = fNL[i]
