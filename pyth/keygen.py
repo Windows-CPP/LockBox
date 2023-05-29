@@ -181,7 +181,7 @@ class KeyGen():
 						tempChar = randint(1, 9)
 						tempChar = round(tempChar * randint(99, 1000)) 
 						charList += str(tempChar)
-				elif(i % 2 != 0): # if the index is odd, skip this iteration
+				elif(i % 2 == 0): # if the index is even, skip this iteration
 					continue
 		
 		## LockBox::Action::KeySet()
