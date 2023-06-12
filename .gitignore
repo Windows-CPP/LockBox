@@ -2,4 +2,7 @@
 tochange.txt
 
 # caches & dump files
-pyth\__pychache__\
+pyth/__pychache__/
+dist/
+comp/
+build/

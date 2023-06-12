@@ -18,3 +18,11 @@
     - Each image is (500x500) pixels, * 5 images = 1,250,000 pixels in total
     - One pixel in the image has RGB pixels that will translate to the encryption key
     - Said pixel can be manually entered, or saved somewhere else
+
+5. [] Compile (most) LockBox files into one
+    - For security reasons, LockBox will be an 'all-inclusive' code segment that is placed at the very top of any code project.
+    - Here's how that would work form a single-file perspective
+        0. The file is edited with a pre-set 'decryption key' inside of it.
+        1. Main python file is turned into an .exe
+        2. Then, using that key, the file 'man.key' is opened and decrypted using the decryption key
+        3. The now decrypted key is used

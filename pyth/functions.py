@@ -5,6 +5,8 @@ def cls():
     'Clears the CLI.'
     os.system("cls")
 
+# when I say that this saves me time, i mean it
+# this function literally stopped me from jumping
 def autoImageManifeset(location):
     'Scans the number and names of all images inside of the specefied directory, and puts them into a returned array.\n\nUsage: autoImageManifest(location)'
     numFiles = 0
