@@ -1,5 +1,7 @@
 # temp / self-note files
 tochange.txt
+*.cache
+*.dmfl
 
 # caches & dump files
 pyth/__pychache__/
