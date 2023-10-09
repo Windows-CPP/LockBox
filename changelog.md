@@ -38,3 +38,6 @@
   - Write tests for the fetch & hide key methods
   - Create the ED class methods for encryption and decryption
   - Write tests for the ED class methods
+  - Remake the encryption keygen from the top down
+  - Make a functional and re-workable encryption algorithm
+  - Make a functional and re-workable decryption algorithm
