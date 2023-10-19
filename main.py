@@ -1,3 +1,3 @@
 from pyth.classHouse import KeyGen
-
-KeyGen.generateKey() # generate the key
+key = KeyGen
+key.generateKey() # generate the key

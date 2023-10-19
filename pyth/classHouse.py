@@ -12,7 +12,7 @@ sett = {
     "imageGenNum":3 # Number of images to generate. 3 by default.
 }
 
-def cls():
+def cls(): # burger king foot lettuce
     'Clears the CLI.'
     os.system("cls")
 
@@ -78,9 +78,6 @@ class KeyGen():
     "Houses the Key Generation Algorithm.\n\nMethods: generateKey(), returnKey()"
     key = ""
 
-    def __init__(self, key):
-        self.key = key
-
     def returnKey(self):
         "Return the key."
         return self.key
@@ -98,10 +95,10 @@ class KeyGen():
         imgLoc = autoImageManifeset(location)
         tempstr = ""
         numFail = 0
-        print("\nLockBox::Keygen::VarSetup::var-int(enclevel):[" + CMGT + str(enclevel) + CEND + "]")
-        print("\nLockBox::Keygen::VarSetup::var-int(igf):[" + CMGT + str(igf) + CEND + "]")
-        print("\nLockBox::Keygen::VarSetup::var-int(imageGenNum):[" + CMGT + str(imageGenNum) + CEND + "]")
-        print("\nLockBox::Keygen::init_success")
+        print("LockBox::Keygen::VarSetup::var-int(enclevel):[" + CMGT + str(enclevel) + CEND + "]")
+        print("LockBox::Keygen::VarSetup::var-int(igf):[" + CMGT + str(igf) + CEND + "]")
+        print("LockBox::Keygen::VarSetup::var-int(imageGenNum):[" + CMGT + str(imageGenNum) + CEND + "]")
+        print("LockBox::Keygen::init_success")
 
         ## Precursor Shit that's gotta get done
         # set the image location & print current image manifest
@@ -122,8 +119,8 @@ class KeyGen():
                 tempList.append(randint(1, 9))
             numlist.append(tempList[randint(1, enclevel-1)])
         del tempList
-        print("\nLockBox::Keygen::RandomNumberArray::len(var-list(numlist)):[" + CMGT + str(len(numlist)) + CEND + "]")
-        print("\nLockBox::Keygen::RandomNumberArray::var-list(numlist):[" + CMGT + str(numlist) + CEND + "]")
+        print("LockBox::Keygen::RandomNumberArray::len(var-list(numlist)):[" + CMGT + str(len(numlist)) + CEND + "]")
+        print("LockBox::Keygen::RandomNumberArray::var-list(numlist):[" + CMGT + str(numlist) + CEND + "]")
 
 
 
@@ -171,4 +168,5 @@ class KeyGen():
         ## Create the Key
         print("\nLockBox::Keygen::KeyMake")
 
-        ## Return the Key
+        print("\nLockBox::Keygen::KeySet")
+        return key
