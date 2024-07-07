@@ -1,19 +1,16 @@
-## imports
 from random import randint
 from time import time
 from tqdm import tqdm
 
-## variables
-# coloured text vars
+## coloured text vars
 CEND = '\u001b[0m'
 CRED = '\u001b[31m'
 CGRN = '\u001b[32m'
 CBLU = '\u001b[34m'
 
-
-## functions
+###############################################################
 def ranNumGen(numdigits):
-    'ranNumGen(int numdigits) -> int memBit\n\nGenerates a cryptographically secure random number with a specified number of digits. This function is highly inefficient, but when generating smaller numbers (5-10 digits), it remains relatively quick.'
+    'Custom, cryptographically-secure random number generator.'
 
     # turn epoch into one number (remove the decimal point)
     epoch = str(time()).replace(".", "") # epoch time
@@ -42,17 +39,54 @@ def ranNumGen(numdigits):
     
     while(len(str(rannum)) != numdigits):
         if(len(str(rannum)) < numdigits):
-            rannum = str(rannum)
-            rannum += str(makeShitHappen())
-            rannum = int(rannum)
+            rannum += makeShitHappen()
         elif(len(str(rannum)) > numdigits):
             rannum = str(rannum)
             rannum = rannum.replace(rannum[randint(0, len(rannum)-1)], "")
             rannum = int(rannum)
         else:
             break
-        #print(str(rannum)) # debug print statement
+    
     return rannum
 
-def GenerateKey():
-    'Generates a set of keys used for encryption.'
+###############################################################
+## runtest vars
+ranGen = True
+
+def runTest(ranGen):
+    'Runs tests of specified functions.'
+
+
+    if ranGen:
+        print(f"{CBLU}CURRENT TEST: RANNUMGEN(){CEND}")
+        tstcnt = 1000
+        t_length = 10
+        
+        bins = [] # binaries
+        bins_l = "" # length of each integer
+
+        # generate numbers and turn into integers
+        for i in tqdm(range(tstcnt)):
+            bins.append(ranNumGen(t_length))
+        
+        print(str(bins))
+        print(f"{CBLU}TEST 1: LENGTH CONSISTENCY{CEND}")
+        print(f"TARGET: {t_length}")
+
+        pas = 0
+        fal = 0
+
+        for i in range(len(bins)):
+            bins_l = str(len(str(bins[i])))
+            if bins_l == str(t_length):
+                pas += 1
+            else:
+                fal += 1
+        print(f"TEST 1 RESULTS: {pas} PASS / {fal} FAIL")
+        if(pas == tstcnt):
+            print(f"{CGRN}TEST 1 PASSED{CEND}")
+        else:
+            print(f"{CRED}TEST 1 FAILED{CEND}")
+
+###############################################################
+runTest(ranGen)
