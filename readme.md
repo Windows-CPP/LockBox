@@ -14,13 +14,11 @@ This varies HEAVILY from former versions of LockBox, which used a unique method 
 
 ## To-Do List
 
-- [ ] HandleFile()
-  - Handles the file to-be encrypted. Mostly running checks to ensure memory stability, as well as preparing for padding.
+- [X] PrepFile()
+  - Small misnomer- Does not prep the file itself, instead gives a block size that the file will be broken into in order to encrypt it. This is almost entirely useless on modern systems, only really existing to support memory-limited and legacy systems.  
+- [ ] Enc/Dec
+  - The actual encryption and decryption code. This is going to be the hardest part, and will therefore take the longest. 
 - [ ] Padder()
   -  Uses either an ANSI-X.923 or a PKCS#7-style method of padding. 
-- [ ] IntraVenous()
-    - I kinda just like the name, but this is actually the Initilizing Vector. Similar to traditional encryption algorithms, the IV is prepended to the encrypted text to make it simple to remove during decryption. This is only to make the protocol much more adaptable, especially in cases of live data streams. 
-- [ ] EncDec
-  - The actual encryption and decryption code. This is going to be the hardest part, and will therefore take the longest. 
 - [ ] Validate()
     - Simple validation script. Just decrypts the data and compares the results. Simple, quick, and effective. 

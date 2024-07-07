@@ -8,6 +8,9 @@ CRED = '\u001b[31m'
 CGRN = '\u001b[32m'
 CBLU = '\u001b[34m'
 
+loc = r"C:\droneshit\test.txt"
+block = 128 # default read block size in bytes
+
 ###############################################################
 def ranNumGen(numdigits):
     'Custom, cryptographically-secure random number generator.'
@@ -49,11 +52,21 @@ def ranNumGen(numdigits):
     
     return rannum
 
+def proccessFileChunk(loc, block):
+    with open(loc, "r") as f:
+        while True:
+            chunk = f.read(block)
+            if not chunk:
+                break
+            yield chunk
+
+
 ###############################################################
 ## runtest vars
-ranGen = True
+ranGen = False
+readChunks = True
 
-def runTest(ranGen):
+def runTest(ranGen, readChunks):
     'Runs tests of specified functions.'
 
 
@@ -87,6 +100,11 @@ def runTest(ranGen):
             print(f"{CGRN}TEST 1 PASSED{CEND}")
         else:
             print(f"{CRED}TEST 1 FAILED{CEND}")
+    
+    if readChunks:
+        for chunk in proccessFileChunk(loc, block):
+            print("\n")
+            print(chunk)
 
 ###############################################################
-runTest(ranGen)
+runTest(ranGen, readChunks)
