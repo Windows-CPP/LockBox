@@ -81,9 +81,9 @@ def prepFile(loc: str, block: int) -> int:
     mem = mem.available
     # compare
     if(size < mem):
-        return 32 # break into 32-byte blocks
+        return 32 # break into 32-byte blocks (legacy for low-memory systems)
     else:
-        return 128 # defaults to 128-byte blocks
+        return 128 # defaults to 128-byte blocks (standard)
     
 def Enc(loc: str, block:int, read: int, key: int, ivt: int) -> None:
     'Enc(str location, int encrypt_block_size, int read_block_size, int key, init_) -> None\n\nEncrypts a file using a specified key and block size.'

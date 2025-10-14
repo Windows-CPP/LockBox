@@ -1,5 +1,11 @@
+# doc files (for now)
 tochange.txt
-/doc/LockBox-Engineering-Notation.odt
-/doc/LockBox.drawio
+*.docx
+*.odt
+*.pdf
+*.drawio
+
+# image and backup files
+*.png
 *.jpg
 *.bkp
