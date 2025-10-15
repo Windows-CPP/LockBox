@@ -9,3 +9,11 @@ tochange.txt
 *.png
 *.jpg
 *.bkp
+
+# build files
+bin/
+build/
+stat/
+std/
+*.exe
+*.dll
