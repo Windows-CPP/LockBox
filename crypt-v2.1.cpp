@@ -17,8 +17,8 @@ float val = 0.0;
 
 using namespace std;
 
-int ranNum(int dLen=64){
-    'LockBox-Crypt (CSRNG) v2.1\n\nGenerates a secure random integer of a specified length.';
+// LockBox-Crypt (CSRNG) v2.1\n\nGenerates a secure random integer of a specified length.
+int ranNum(int dLen=64){;
 
     // generate number 
     // number formula in PYTHON version:
@@ -40,8 +40,8 @@ int ranNum(int dLen=64){
     return temp;
 };
 
-void ranNumST(int dLen=128, int itCount=1000, float tlrnc=2){
-    'LockBox-Crypt (CSRNG) v2.1\n\nTests the cryptographic security of LockBox-Crypt by analyzing patterns of multiple iterations of the function.';
+// LockBox-Crypt (CSRNG) v2.1\n\nTests the cryptographic security of LockBox-Crypt by analyzing patterns of multiple iterations of the function.
+void ranNumST(int dLen=128, int itCount=1000, float tlrnc=2){;
 
     // add test numbers to numArray
     vector<int> numArray;
