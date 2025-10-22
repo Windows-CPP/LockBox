@@ -37,6 +37,24 @@ def ranNum(dLen=64) -> int:
 
     return temp
 
+"""
+TO-ADD FEATURE:
+- [ ] token generation
+    - [ ] byte tokens
+    - [ ] hexadec tokens
+    - [ ] url-safe tokens
+- [ ] ranNumST - make work for token generation
+    | currently, ranNumST only works for pure numbers due to the subfunc of the digit distribution check only having 0-9 as valid
+    | digits. could rework with a real-time dictionary, where if a new character is found, it is added to a dict with a count
+    | of occurances, as opposed to a static list of every possible character- this also ensures that the distribution check
+    | will only count distribution of characters that actually appear in the generated tokens, as opposed to fucking up the 
+    | distribution percentages by including characters that never appear
+    |
+    | not a lot of work, but will end up being a complete rework of that section of code- do this before working on token gen
+    |
+    | python 'secrets' does not have a test function, so this will be a unique (maybe pointless) feature of LockBox
+
+"""
 def ranNumST(dLen=128, itCount=1000, tlrnc=2) -> None:
     'LockBox-Crypt (CSRNG) v2.1\n\nTests the cryptographic security of LockBox-Crypt by analyzing patterns of multiple iterations of the function.'
     
@@ -83,6 +101,6 @@ def ranNumST(dLen=128, itCount=1000, tlrnc=2) -> None:
         for j in range(i+1, len(numArray)):
             if numArray[i] == numArray[j]:
                 eMat += 1
-    print(f"{0/len(numArray)}         | EXACMATCH.......{CGRE+'PASS'+CEND if (eMat == 0) else CRED+'FAIL'+CEND}")
+    print(f"{0}/{len(numArray)}       | EXACMATCH.......{CGRE+'PASS'+CEND if (eMat == 0) else CRED+'FAIL'+CEND}")
 
 ranNumST(128, 100, 2)

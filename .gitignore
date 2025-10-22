@@ -12,6 +12,8 @@ tochange.txt
 *.bkp
 
 # build files
+*.spec
+dist/
 bin/
 build/
 stat/
