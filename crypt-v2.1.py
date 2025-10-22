@@ -19,7 +19,7 @@ CRED = '\033[91m'
 CBLU = '\033[94m'
 CGRE = '\033[92m'
 
-DBUG = False # regular debug mode (regular outputs, tests, breakpoints, etc.)
+DBUG = True # regular debug mode (regular outputs, tests, breakpoints, etc.)
 DBUG_V = False # verbose debug mode (detailed outputs, near line-by-line operation where applies)
 
 def ranNum(dLen=64) -> int:
@@ -63,7 +63,7 @@ def ranNumST(dLen=128, itCount=1000, tlrnc=2) -> None:
         print(f"3 LST Frequent Digits: {[numDist.index(numDistCpy[i]) for i in range(3)]} | Occurences: {[numDistCpy[i] for i in range(3)]}")
         print(f"3 MST Frequent Digits: {[numDist.index(numDistCpy[-(i+1)]) for i in range(3)]} | Occurences: {[numDistCpy[-(i+1)] for i in range(3)]}")
         
-        print(f"{CBLU}Analysis Complete: Test Results Below.{CEND}") if DBUG==False else input(f"{CBLU}Analysis Complete: Test Results Below. Press ENTER to Continue.{CEND}")
+        input(f"Analysis Complete: Test Results Below. Press ENTER to continue.") if DBUG_V else print(f"Analysis Complete: Test Results Below.")
         print(f"{sum(numDist)}/{dLen*itCount} | CHKSUM..........{CGRE+'PASS'+CEND if (sum(numDist) == dLen*itCount) else CRED+'FAIL'+CEND}")
             
     # numeric consistency / tolerance check
@@ -76,3 +76,13 @@ def ranNumST(dLen=128, itCount=1000, tlrnc=2) -> None:
         else:
             print(f"DGT{idx}        | TLRNCE..........{CGRE+'PASS'+CEND}")
     print(f"Number Distribution: {numPerc}")
+
+    # exact matches check
+    eMat = 0
+    for i in range(len(numArray)):
+        for j in range(i+1, len(numArray)):
+            if numArray[i] == numArray[j]:
+                eMat += 1
+    print(f"{0/len(numArray)}         | EXACMATCH.......{CGRE+'PASS'+CEND if (eMat == 0) else CRED+'FAIL'+CEND}")
+
+ranNumST(128, 100, 2)

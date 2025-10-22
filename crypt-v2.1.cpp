@@ -1,12 +1,11 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <cmath> 
-#include <print>
+#include <cmath>
 #include <numeric>
 #include <algorithm>
 
-bool DBUG=false;
+bool DBUG=true;
 bool DBUG_V=false;
 
 
@@ -41,7 +40,7 @@ int ranNum(int dLen=64){;
 };
 
 // LockBox-Crypt (CSRNG) v2.1\n\nTests the cryptographic security of LockBox-Crypt by analyzing patterns of multiple iterations of the function.
-void ranNumST(int dLen=128, int itCount=1000, float tlrnc=2){;
+void ranNumST(int dLen=128, int itCount=1000, float tlrnc=2){
 
     // add test numbers to numArray
     vector<int> numArray;
@@ -72,7 +71,6 @@ void ranNumST(int dLen=128, int itCount=1000, float tlrnc=2){;
         for(int i=0; i<3; i++){
             int maxIndex = distance(numDist.begin(), max_element(numDist.begin(), numDist.end()));
             top3.pushback(numArray[maxIndex]);
-            numDist[maxIndex] = -1; // mark as used
         }
 
         // 3 least commonly occuring numbers
@@ -80,11 +78,10 @@ void ranNumST(int dLen=128, int itCount=1000, float tlrnc=2){;
         for(int i=0; i<3; i++){
             int minIndex = distance(numDist.begin(), min_element(numDist.begin(), numDist.end()));
             least3.pushback(numArray[minIndex]);
-            numDist[minIndex] = 999999999; // mark as used
         }
-        cout << "\n3 Most Commonly Occuring Numbers: " << top3 << endl;
-        cout << "\n3 Least Commonly Occuring Numbers: " << least3 << endl;
 
+        cout << "\n3 Most Commonly Occuring Numbers: " << least3 << endl;
+        cout << "\n3 Least Commonly Occuring Numbers: " << least3 << endl;
         // numeric consistency / tolerance check
         // this check is to see if any distribution percentage exceeds the tolerance percentage- if it fails, on top of printing a FAIL instead of PASS, print out the percentage of occurances, the percentage difference, and the tolerance range
         // python code version
@@ -98,7 +95,6 @@ void ranNumST(int dLen=128, int itCount=1000, float tlrnc=2){;
             else:
                 print(f"DGT{idx}        | TLRNCE..........{CGRE+'PASS'+CEND}")
         print(f"Number Distribution: {numPerc}")
-        
         */
         float tollvl = (tlrnc/100)*(itCount*dLen/10);
         cout << "\nTolerance Level: " << tollvl << "(" << tlrnc << "%)" << endl;
