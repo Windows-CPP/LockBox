@@ -14,36 +14,44 @@ from time import time
 import psutil as pu
 from tqdm import tqdm
 
-CEND = '\033[0m'
-CRED = '\033[91m'
-CBLU = '\033[94m'
-CGRE = '\033[92m'
+CEND, CRED, CBLU, CGRE = '\033[0m', '\033[91m', '\033[94m', '\033[92m'
 
 DBUG = True # regular debug mode (regular outputs, tests, breakpoints, etc.)
 DBUG_V = False # verbose debug mode (detailed outputs, near line-by-line operation where applies)
 
-def ranNum(dLen=64) -> int:
-    'LockBox-Crypt (CSRNG) v2.1\n\nGenerates a secure random integer of a specified length.'
-    
-    # generate number
-    temp = ((pu.cpu_stats().ctx_switches * int(time()*1000)) % 100000)*(pu.virtual_memory().available % 100000) * 3.1459265; temp = round(temp); temp = (temp:=temp*(pu.cpu_stats().interrupts % 100000)) % 1000000007
-    #tempbin = bin(temp)[2:] # turn into binary
-    
-    # get to desired length
-    while True:
-        if len(str(temp)) > dLen: temp = int(str(temp)[:dLen])
-        elif(len(str(temp)) < dLen): temp = int(str(temp)*2)
-        else: break
 
-    return temp
+## num & token gens
+def ranNum(dLen=64, min=-1, max=-1) -> int:
+    'Generates a secure random integer of a specific length.\n\nNOTE: min & max can result in infinite loop if not properly set. Ensure that the range between min & max can accommodate the digit length specified by dLen.'
+    
+    while True:
+        # generate number
+        temp = ((pu.cpu_stats().ctx_switches * int(time()*1000)) % 100000)*(pu.virtual_memory().available % 100000) * 3.1459265; temp = round(temp); temp = (temp:=temp*(pu.cpu_stats().interrupts % 100000)) % 1000000007
+        #tempbin = bin(temp)[2:] # turn into binary
+        
+        # get to desired length
+        while True:
+            if len(str(temp)) > dLen: temp = int(str(temp)[:dLen])
+            elif(len(str(temp)) < dLen): temp = int(str(temp)*2)
+            else: break
+
+        # check if min/max valid
+        if(min == -1 or max == -1): # no min/max specified; skip this step
+            return temp
+        else: # min/max specified
+            if(temp >= min and temp <= max): # within range
+                return temp
+            elif(temp < min or temp > max): # out of range; regenerate number
+                temp = ((pu.cpu_stats().ctx_switches * int(time()*1000)) % 100000)*(pu.virtual_memory().available % 100000) * 3.1459265; temp = round(temp); temp = (temp:=temp*(pu.cpu_stats().interrupts % 100000)) % 1000000007
+                continue
+
 
 """
-TO-ADD FEATURE:
 - [ ] token generation
-    - [ ] byte tokens
-    - [ ] hexadec tokens
-    - [ ] url-safe tokens
-- [ ] ranNumST - make work for token generation
+    - [ ] byte tokens (v2.3)
+    - [ ] hexadec tokens (v2.4)
+    - [ ] url-safe tokens (v2.5)
+- [ ] ranGenST - make work for token generation (crypt v2.2)
     | currently, ranNumST only works for pure numbers due to the subfunc of the digit distribution check only having 0-9 as valid
     | digits. could rework with a real-time dictionary, where if a new character is found, it is added to a dict with a count
     | of occurances, as opposed to a static list of every possible character- this also ensures that the distribution check
@@ -55,8 +63,46 @@ TO-ADD FEATURE:
     | python 'secrets' does not have a test function, so this will be a unique (maybe pointless) feature of LockBox
 
 """
-def ranNumST(dLen=128, itCount=1000, tlrnc=2) -> None:
-    'LockBox-Crypt (CSRNG) v2.1\n\nTests the cryptographic security of LockBox-Crypt by analyzing patterns of multiple iterations of the function.'
+def ranToken(tkTp='url', dLen=64) -> None:
+    'Generates a secure random token of a specified length & type.'
+    
+    # since a byte can hold 256 values, generate a single bit to represent hundreds place;
+    # if int <=3, then XX; if int >3 & <=7, then 1XX; if int >7, then 2XX
+    # then, generate the required number as an int between the min & max above, convert to a byte value
+    # repeat as many times as dLen specifies
+    if(tkTp=='byt'):
+        temp = b''
+        while True:
+            sT = ranNum(1)
+            if(sT <= 3):
+                temp = (ranNum(2, 0, 99)).to_bytes(1, 'big')
+            elif(sT > 3 and sT <= 7):
+                temp = (ranNum(3, 100, 199)).to_bytes(1, 'big')
+            else:
+                temp = (ranNum(3, 200, 255)).to_bytes(1, 'big')
+            
+
+            print(f"{len(temp)} / {temp}")
+            if(len(temp) == dLen):
+                return temp
+            else:
+                temp = b''
+    
+    # generates a hexadecimal token of length dLen; look more into this later
+    elif(tkTp=='hex'):
+        pass
+
+    # generates a url-safe token of length dLen; maybe have a dictionary of valid characters to choose from, then 
+    # generate a number to use as an index to pick from the dict, repeat dLen times
+    # this one is easier than the hex one lol
+    elif(tkTp=='url'):
+        pass
+    else:
+        return None
+
+## num & token tests
+def ranGenST(dLen=128, itCount=1000, tlrnc=2) -> None:
+    'Tests the cryptographic security of LockBox-Crypt by analyzing patterns of multiple iterations of the function.'
     
     numArray = []
     for i in tqdm(range(itCount), desc="ranNumSecureTest"):
@@ -102,5 +148,4 @@ def ranNumST(dLen=128, itCount=1000, tlrnc=2) -> None:
             if numArray[i] == numArray[j]:
                 eMat += 1
     print(f"{0}/{len(numArray)}       | EXACMATCH.......{CGRE+'PASS'+CEND if (eMat == 0) else CRED+'FAIL'+CEND}")
-
-ranNumST(128, 100, 2)
+    return None
